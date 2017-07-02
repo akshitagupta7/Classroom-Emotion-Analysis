@@ -1,6 +1,9 @@
 type = ['','info','success','warning','danger'];
-    	
-
+    	    var json;
+			$.get("http://139.59.29.24/getpiechart.php",function(data){
+			json=JSON.parse(data);
+		});
+console.log(json);
 demo = {
     initPickColor: function(){
         $('.pick-class-label').click(function(){
@@ -19,18 +22,18 @@ demo = {
     initChartist: function(){    
         
         var dataSales = {
-          labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+          labels: ['9:00AM', '10:00AM', '11:00AM', '12:00PM', '1:00PM', '2:00PM', '3:00PM'],
           series: [
-             [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
-            [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
-            [23, 113, 67, 108, 190, 239, 307, 308, 439, 410, 410, 509]
+             [28, 75, 40, 42, 54, 58, 68, 55, 72, 78, 86, 44],
+            [16, 12, 53, 29, 87, 35, 35, 47, 89, 54, 54, 47],
+            [3, 1, 7, 10, 19, 9, 7, 3, 49, 20, 40, 9]
           ]
         };
         
         var optionsSales = {
           lineSmooth: false,
           low: 0,
-          high: 800,
+          high: 100,
           showArea: true,
           height: "245px",
           axisX: {
@@ -101,13 +104,16 @@ demo = {
                 showGrid: false
             }
         };
-    
-        Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+    $.get("http://139.59.29.24/getpiechart.php",function(data){
+			json=JSON.parse(data);
+			        Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
         
         Chartist.Pie('#chartPreferences', {
-          labels: ['62%','32%','6%'],
-          series: [62, 32, 6]
+         labels: ['','','','','','','',''],
+          series: [json.neutral,json.happiness,json.fear,json.sadness,json.anger,json.contempt,json.surprise,json.disgust]
         });   
+		});
+
     },
     
     initGoogleMaps: function(){
